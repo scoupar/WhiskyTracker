@@ -43,7 +43,7 @@ public class WhiskyController {
             @RequestParam(name = "region") String region){
                 return new ResponseEntity<List<Whisky>>(whiskyRepository.findWhiskyByDistilleryRegion(region), HttpStatus.OK);
     }
-    
+
 
 }
 

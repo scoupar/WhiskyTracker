@@ -18,6 +18,7 @@ public class DistilleryController {
     DistilleryRepository distilleryRepository;
 
     @GetMapping(value = "/distilleries")
+    
     public ResponseEntity<List<Distillery>> getAllDistilleries(){
         return new ResponseEntity<>(distilleryRepository.findAll(), HttpStatus.OK);
     }
@@ -27,6 +28,13 @@ public class DistilleryController {
             @RequestParam(name = "region") String region)
     {
         return new ResponseEntity<>(distilleryRepository.findDistilleryByRegion(region), HttpStatus.OK);
-
     }
+
+    @GetMapping(value = "/distilleries/whisky")
+    public ResponseEntity<List<Distillery>> getDistilleryByWhiskyAge(
+            @RequestParam(name = "age") int age){
+        return new ResponseEntity<>(distilleryRepository.findDistilleryByWhiskiesAge(age), HttpStatus.OK);
+    }
+
+
 }
