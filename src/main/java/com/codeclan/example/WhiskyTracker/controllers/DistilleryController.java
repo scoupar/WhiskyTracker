@@ -18,23 +18,32 @@ public class DistilleryController {
     DistilleryRepository distilleryRepository;
 
     @GetMapping(value = "/distilleries")
-    
-    public ResponseEntity<List<Distillery>> getAllDistilleries(){
-        return new ResponseEntity<>(distilleryRepository.findAll(), HttpStatus.OK);
-    }
 
-    @GetMapping(value = "/distilleries/region")
-    public ResponseEntity<List<Distillery>> getDistilleryByRegion(
-            @RequestParam(name = "region") String region)
+    public ResponseEntity<List<Distillery>> getAllDistilleries(
+            @RequestParam(name = "region", required = false) String region,
+            @RequestParam(name = "age", required = false) Integer age){
     {
-        return new ResponseEntity<>(distilleryRepository.findDistilleryByRegion(region), HttpStatus.OK);
-    }
+        if (region != null) {
+            return new ResponseEntity<>(distilleryRepository.findDistilleryByRegion(region), HttpStatus.OK);
+        }
+        if (age != null)
+            return new ResponseEntity<>(distilleryRepository.findDistilleryByWhiskiesAge(age), HttpStatus.OK);
+        }
+            return new ResponseEntity<>(distilleryRepository.findAll(), HttpStatus.OK);
+        }
 
-    @GetMapping(value = "/distilleries/whisky")
-    public ResponseEntity<List<Distillery>> getDistilleryByWhiskyAge(
-            @RequestParam(name = "age") int age){
-        return new ResponseEntity<>(distilleryRepository.findDistilleryByWhiskiesAge(age), HttpStatus.OK);
-    }
+//    @GetMapping(value = "/distilleries/region")
+//    public ResponseEntity<List<Distillery>> getDistilleryByRegion(
+//            @RequestParam(name = "region") String region)
+//    {
+//        return new ResponseEntity<>(distilleryRepository.findDistilleryByRegion(region), HttpStatus.OK);
+//    }
+
+//    @GetMapping(value = "/distilleries/whisky")
+//    public ResponseEntity<List<Distillery>> getDistilleryByWhiskyAge(
+//            @RequestParam(name = "age") int age){
+//        return new ResponseEntity<>(distilleryRepository.findDistilleryByWhiskiesAge(age), HttpStatus.OK);
+//    }
 
 
 }
